@@ -6,11 +6,6 @@ from geopy import distance
 from dotenv import load_dotenv
 
 
-load_dotenv('.env')
-
-APIKEY = os.getenv("APIKEY")
-
-
 def fetch_coordinates(apikey, address):
     base_url = "https://geocode-maps.yandex.ru/1.x"
     response = requests.get(base_url, params={
@@ -34,10 +29,12 @@ def get_distance_cof(user):
 
 
 def coffee_nearest(locate_a):
+    load_dotenv('.env')
+    apikey = os.getenv("APIKEY")
     with open("coffee.json", "r", encoding="CP1251") as my_file:
         file_contents = my_file.read()
     file_contents_list = json.loads(file_contents)
-    coords_a = fetch_coordinates(APIKEY, locate_a)[::-1]
+    coords_a = fetch_coordinates(apikey, locate_a)[::-1]
     cof_list = []
 
     for cof in file_contents_list:
