@@ -8,12 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv('.env')
 
-with open("coffee.json", "r", encoding="CP1251") as my_file:
-    file_contents = my_file.read()
-
-file_contents_list = json.loads(file_contents)
-
-apikey = os.getenv("APIKEY")
+APIKEY = os.getenv("APIKEY")
 
 
 def fetch_coordinates(apikey, address):
@@ -39,7 +34,10 @@ def get_distance_cof(user):
 
 
 def coffee_nearest(locate_a):
-    coords_a = fetch_coordinates(apikey, locate_a)[::-1]
+    with open("coffee.json", "r", encoding="CP1251") as my_file:
+        file_contents = my_file.read()
+    file_contents_list = json.loads(file_contents)
+    coords_a = fetch_coordinates(APIKEY, locate_a)[::-1]
     cof_list = []
 
     for cof in file_contents_list:
